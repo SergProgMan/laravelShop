@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware(['auth','isAdmin'])->namespace('BackOffice')->prefix('control-panel')->group(function(){
-    Route::resource('products','ProductsController');
+
+Route::middleware(['auth','isAdmin'])->namespace('BackOffice')->prefix('control-panel')->group(function(){ //create group of routs
+    Route::resource('/products','ProductsController');
 });
