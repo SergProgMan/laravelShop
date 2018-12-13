@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::middleware(['auth','isAdmin'])->namespace('BackOffice')->prefix('control-panel')->group(function(){
+    Route::resource('products','ProductsController');
+});

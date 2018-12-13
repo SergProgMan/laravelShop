@@ -1,0 +1,44 @@
+[2018-12-13 14:25:16.893] [sharedprocess] [info] main {"machineId":"25c6696e0828e6d22cbb90a0086943b7f97ff01041353bcccb383331f0b5a518"}
+[2018-12-13 14:25:17.154] [sharedprocess] [info] Scanned user extensions: 5
+[2018-12-13 14:25:17.250] [sharedprocess] [info] Scanned user extensions: 5
+[2018-12-13 14:25:17.290] [sharedprocess] [info] Scanned user extensions: 5
+[2018-12-13 14:25:17.581] [sharedprocess] [info] Scanned system extensions: 71
+[2018-12-13 14:25:17.585] [sharedprocess] [info] Scanned system extensions: 71
+[2018-12-13 14:25:42.490] [sharedprocess] [info] Scanned user extensions: 5
+[2018-12-13 14:25:56.913] [sharedprocess] [info] Starting to clean up unused language packs.
+[2018-12-13 14:30:17.335] [sharedprocess] [info] Scanned user extensions: 5
+[2018-12-13 14:30:57.387] [sharedprocess] [info] Scanned user extensions: 5
+[2018-12-13 14:30:57.462] [sharedprocess] [info] Scanned user extensions: 5
+[2018-12-13 14:30:57.466] [sharedprocess] [info] Scanned user extensions: 5
+[2018-12-13 14:30:57.480] [sharedprocess] [info] Scanned user extensions: 5
+[2018-12-13 14:30:57.722] [sharedprocess] [info] Scanned system extensions: 71
+[2018-12-13 14:30:57.728] [sharedprocess] [info] Scanned system extensions: 71
+[2018-12-13 14:30:57.733] [sharedprocess] [info] Scanned system extensions: 71
+[2018-12-13 14:31:27.442] [sharedprocess] [info] Installing extension: laravel-blade
+[2018-12-13 14:31:27.456] [sharedprocess] [info] Scanned user extensions: 5
+[2018-12-13 14:31:28.010] [sharedprocess] [info] Downloaded extension: laravel-blade /tmp/51d29683-94fc-46a7-bb18-b2fe50612141
+[2018-12-13 14:31:28.052] [sharedprocess] [info] Extracted extension to /home/geek/.vscode/extensions/.cjhowe7.laravel-blade-1.1.2: cjhowe7.laravel-blade-1.1.2
+[2018-12-13 14:31:28.052] [sharedprocess] [info] Renamed to /home/geek/.vscode/extensions/cjhowe7.laravel-blade-1.1.2
+[2018-12-13 14:31:28.053] [sharedprocess] [info] Installation completed. cjhowe7.laravel-blade-1.1.2
+[2018-12-13 14:31:28.062] [sharedprocess] [info] Extensions installed successfully: cjhowe7.laravel-blade
+[2018-12-13 14:31:28.201] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 14:31:28.250] [sharedprocess] [info] Scanned system extensions: 71
+[2018-12-13 14:31:41.215] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 14:31:41.228] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 14:31:41.237] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 14:31:41.286] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 14:31:41.303] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 14:31:41.931] [sharedprocess] [info] Scanned system extensions: 71
+[2018-12-13 14:31:41.984] [sharedprocess] [info] Scanned system extensions: 71
+[2018-12-13 14:31:42.018] [sharedprocess] [info] Scanned system extensions: 71
+[2018-12-13 14:31:42.042] [sharedprocess] [info] Scanned system extensions: 71
+[2018-12-13 14:31:43.974] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 14:36:44.023] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 14:41:44.052] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 14:46:44.078] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 14:51:44.098] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 14:56:44.119] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 15:01:44.151] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 15:06:44.170] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 15:11:44.200] [sharedprocess] [info] Scanned user extensions: 6
+[2018-12-13 15:16:44.225] [sharedprocess] [info] Scanned user extensions: 6
