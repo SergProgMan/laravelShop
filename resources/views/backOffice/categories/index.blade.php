@@ -9,6 +9,7 @@
         <tr>
         <th scope="col">Name</th>
         <th scope="col">Description</th>
+        <th scope="col">Icon</th>
         <th scope="col"></th>
         </tr>
     </thead>
@@ -17,6 +18,11 @@
             <tr>
             <td>{{ $category->name }}</td>
             <td>{{ $category->description }}</td>
+            <td>
+                @isset($category->iconPath)
+                    <img src="{{ Storage::url($category->iconPath) }}" width="50">
+                @endisset
+                </td>
             <td> 
                 
                 <form method="Post" action="{{ route('backOffice.categories.destroy', $category)}}">

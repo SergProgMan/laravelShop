@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackOffice;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Category;
 
 class CategoriesController extends Controller
@@ -45,7 +46,13 @@ class CategoriesController extends Controller
         ]);
         //return dd('store');
         //return $attributes;
-        Category::create($attributes)->save();
+        $category = Category::create($attributes);
+        
+        if($request->iconPath){
+            $category->iconPath = $request->file('iconPath')->store('/public/categories');
+        }
+
+        $category->save();
 
         return redirect('backOffice/categories');
     }
@@ -92,8 +99,16 @@ class CategoriesController extends Controller
         $category = Category::find($id);
         $category->name = $request->name;
         $category->description = $request->description;
-        $category->save();
+      
+        if($request->iconPath){
+            if(Storage::exists($category->iconPath)){
+                Storage::delete($category->iconPath);
+            }
+            $category->iconPath = $request->file('iconPath')->store('/public/categories');
+        }
 
+        $category->save();
+        
         return redirect('backOffice/categories');
     }
 

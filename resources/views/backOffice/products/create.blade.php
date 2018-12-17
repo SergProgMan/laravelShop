@@ -8,7 +8,7 @@
                 <div class="panel-heading">Create new Product</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('backOffice.categories.store') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('backOffice.products.store') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group">
@@ -47,7 +47,7 @@
                                 <textarea
                                     id="description"
                                     name="description"
-                                    class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
+                                    class="form-control textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
                                     required>{{ old('description') }}</textarea>
 
                                 @if ($errors->has('description'))

@@ -48,7 +48,7 @@ class ProductsController extends Controller
         //return $attributes;
         Product::create($attributes)->save();
 
-        return redirect('/control-panel/products');
+        return redirect('/backOffice/products');
         
         // $product = new Product;
         // $product->name = request('name');
@@ -102,7 +102,7 @@ class ProductsController extends Controller
         $product->description = $request->description;
         $product->save();
 
-        return redirect('backOffice/categories');
+        return redirect('backOffice/products');
     }
 
     /**
@@ -113,6 +113,9 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        return dd('destroy');
+        Product::findOrFail($id)->delete();
+
+        return redirect ('backOffice/products');
+        //return dd('destroy');
     }
 }

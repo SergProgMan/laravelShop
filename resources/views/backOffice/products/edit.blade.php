@@ -49,7 +49,7 @@
                                 <textarea
                                     id="description"
                                     name="description"
-                                    class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
+                                    class="form-control textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
                                     required>{{ old('description', $product->description) }}</textarea>
 
                                 @if ($errors->has('description'))

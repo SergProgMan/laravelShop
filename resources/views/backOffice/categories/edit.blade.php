@@ -9,7 +9,7 @@
                 <div class="panel-heading">Edit Category</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('backOffice.categories.update', $category) }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('backOffice.categories.update', $category) }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
 
@@ -35,7 +35,7 @@
                                 <textarea
                                     id="description"
                                     name="description"
-                                    class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
+                                    class="form-control textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
                                     required>{{ old('description', $category->description) }}</textarea>
 
                                 @if ($errors->has('description'))
@@ -43,6 +43,17 @@
                                         <strong>{{ $errors->first('description') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="iconPath" class="col-md-4 control-label">Icon</label>
+
+                            <div class="col-md-6">
+                                <input id="name" 
+                                        type="file" 
+                                        class="form-control" 
+                                        name="iconPath">
                             </div>
                         </div>
 
