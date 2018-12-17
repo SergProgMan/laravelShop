@@ -1,62 +1,83 @@
 @extends('backOffice.layouts.backOffice')
 
 @section('content')
-    <h1 class="title col-md-8 col-md-offset-2">Create a New Product</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Create new Product</div>
+
+                <div class="panel-body">
+                    <form class="form-horizontal" method="POST" action="{{ route('backOffice.categories.store') }}">
+                        {{ csrf_field() }}
+
+                        <div class="form-group">
+                            <label for="name" class="col-md-4 control-label">Name</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                                <label for="price" class="col-md-4 control-label">Price</label>
     
-    <form method="POST" action="{{ route ('products.index') }}">
-        {{ csrf_field() }}
+                                <div class="col-md-6">
+                                    <input id="price" type="text" class="form-control" name="price" value="{{ old('price') }}" required autofocus>
+    
+                                    @if ($errors->has('price'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('price') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
 
-        <div class="field col-md-8 col-md-offset-2">
-            <label for="name">Product name</label>
-            <div class="control">
-                <input 
-                    type="text"
-                    class="input {{ $errors->has('name') ? 'is-danger' : '' }}"
-                    name="name"
-                    value="{{ old('name') }}"    
-                    required>
+                        <div class="form-group">
+                            <label for="description" class="col-md-4 control-label">Description</label>
+
+                            <div class="col-md-6">
+                                
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
+                                    required>{{ old('description') }}</textarea>
+
+                                @if ($errors->has('description'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    @if ($errors->any())
+                        <div class="notification is-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>    
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
-
-        <div class="field col-md-8 col-md-offset-2">
-            <label for="description">Description</label>
-            <div class="control">
-                <textarea
-                    name="description"
-                    class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
-                    required
-                >
-                    {{ old('description') }}
-                </textarea>
-            </div>
-        </div>
-
-        <div class="field col-md-8 col-md-offset-2">
-            <label for="price">Price</label>
-            <div class="control">
-                <input
-                    type="text"
-                    class="input {{ $errors->has('price') ? 'is-danger' : '' }}"
-                    name="price"
-                    value="{{ old('price') }}"
-                    required>
-            </div>
-        </div>
-
-        <div class="field col-md-8 col-md-offset-2">
-            <div class="control">
-                <button type="submit" class="button is-link">Create Product</button>
-            </div>
-        </div>
-
-        @if ($errors->any())
-            <div class="notification is-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>    
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-    </form>
+    </div>
+</div>
 @endsection

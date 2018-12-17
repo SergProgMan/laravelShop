@@ -17,7 +17,7 @@ class ProductsController extends Controller
     {
         //return dd('index');
         $products = Product::all();
-        return view('backOffice.index', compact('products'));
+        return view('backOffice.products.index', compact('products'));
     }
 
     /**
@@ -28,7 +28,7 @@ class ProductsController extends Controller
     public function create()
     {
         //return dd('create');
-        return view('backOffice.create');
+        return view('backOffice.products.create');
     }
 
     /**
@@ -42,11 +42,12 @@ class ProductsController extends Controller
         $attributes = request()->validate([
             'name'=>['required','min:3'],
             'description'=>['required', 'min:3'],
-            'price'=>['required']
+            'price'=>['required', 'numeric'],
         ]);
 
         //return $attributes;
-        Product::create($attributes);
+        Product::create($attributes)->save();
+
         return redirect('/control-panel/products');
         
         // $product = new Product;
@@ -76,9 +77,10 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        return dd('edit');
+        return view('backOffice.products.edit', compact('product'));
+        //return dd('edit');
     }
 
     /**
@@ -90,7 +92,17 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return dd('update');
+        $request->validate([
+            'name'=>['required','min:3'],
+            'description'=>['required', 'min:3'],
+            'price'=>['required', 'numeric'],
+        ]);
+        $product = Product::find($id);
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->save();
+
+        return redirect('backOffice/categories');
     }
 
     /**

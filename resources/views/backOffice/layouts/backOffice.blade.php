@@ -36,7 +36,39 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    Categories<span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ route('backOffice.categories.index') }}">
+                                            List
+                                        </a>
+                                        <a href="{{ route('backOffice.categories.create') }}">
+                                            Create
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    Products<span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ route('backOffice.products.index') }}">
+                                            List
+                                        </a>
+                                        <a href="{{ route('backOffice.products.create') }}">
+                                            Create
+                                        </a>        
+                                    </li>
+                                </ul>
+                            </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

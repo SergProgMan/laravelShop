@@ -41,7 +41,7 @@ class CategoriesController extends Controller
         //return dd($request);
         $attributes = request()->validate([
             'name'=>['required','min:3'],
-            'description'=>['required', 'min:3']
+            'description'=>['required', 'min:3'],            
         ]);
         //return dd('store');
         //return $attributes;
