@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackOffice;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Product;
 
 class ProductsController extends Controller
 {
@@ -14,7 +15,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('backOffice.index');
+        //return dd('index');
+        $products = Product::all();
+        return view('backOffice.index', compact('products'));
     }
 
     /**
@@ -24,7 +27,8 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+        //return dd('create');
+        return view('backOffice.create');
     }
 
     /**
@@ -34,8 +38,25 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $attributes = request()->validate([
+            'name'=>['required','min:3'],
+            'description'=>['required', 'min:3'],
+            'price'=>['required']
+        ]);
+
+        //return $attributes;
+        Product::create($attributes);
+        return redirect('/control-panel/products');
+        
+        // $product = new Product;
+        // $product->name = request('name');
+        // $product->price = request('price');
+        // $product->description = request('description');
+
+        // $product->save();
+        // //return dd('store');
+        // return redirect('/control-panel/products');
     }
 
     /**
@@ -46,7 +67,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        //
+        return dd('show');
     }
 
     /**
@@ -57,7 +78,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return dd('edit');
     }
 
     /**
@@ -69,7 +90,7 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return dd('update');
     }
 
     /**
@@ -80,6 +101,6 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return dd('destroy');
     }
 }

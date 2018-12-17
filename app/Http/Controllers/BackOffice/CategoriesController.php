@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackOffice;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Category;
 
 class CategoriesController extends Controller
 {
@@ -14,7 +15,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        //return dd('index');
+        $categories = Category::all();
+        return view ('backOffice.categories.index', compact('categories'));
     }
 
     /**
@@ -24,7 +27,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view ('backOffice.categories.create');
     }
 
     /**
@@ -35,7 +38,17 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return dd($request);
+        $attributes = request()->validate([
+            'name'=>['required','min:3'],
+            'description'=>['required', 'min:3']
+        ]);
+        //return dd('store');
+        //return $attributes;
+        $category = Category::create($attributes);
+        $category->save();
+
+        return redirect('backOffice/categories');
     }
 
     /**
@@ -46,7 +59,7 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        return dd('show');
     }
 
     /**
@@ -57,7 +70,11 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+       // return dd('edit');
+
+        $category = Category::find($id);
+
+        return view('backOffice.categories.edit', compact('category'));
     }
 
     /**
@@ -69,7 +86,7 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return dd('update');
     }
 
     /**
@@ -80,6 +97,6 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return dd('destroy');
     }
 }

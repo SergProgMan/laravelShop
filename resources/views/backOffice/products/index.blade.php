@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    {{ 'weeeeeee' }}
+    @foreach($products as $product)
+        <li>{{ $product->name }} </li>
+    @endforeach
 </body>
 </html>
