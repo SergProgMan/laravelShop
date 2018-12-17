@@ -1,5 +1,6 @@
 @extends('backOffice.layouts.backOffice')
 
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -8,7 +9,7 @@
                 <div class="panel-heading">Create new Category</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('backOffice.categories') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('backOffice.categories.update', $category) }}">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
 
@@ -16,7 +17,7 @@
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name', $category->name) }}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -35,9 +36,7 @@
                                     id="description"
                                     name="description"
                                     class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
-                                    required>
-                                    {{ old('description') }}
-                                </textarea>
+                                    required>{{ old('description', $category->description) }}</textarea>
 
                                 @if ($errors->has('description'))
                                     <span class="help-block">
@@ -50,7 +49,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Create
+                                    Update
                                 </button>
                             </div>
                         </div>

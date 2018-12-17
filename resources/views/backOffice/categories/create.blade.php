@@ -11,7 +11,7 @@
                     <form class="form-horizontal" method="POST" action="{{ route('backOffice.categories.store') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <div class="form-group">
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                        <div class="form-group">
                             <label for="description" class="col-md-4 control-label">Description</label>
 
                             <div class="col-md-6">
@@ -34,9 +34,7 @@
                                     id="description"
                                     name="description"
                                     class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
-                                    required>
-                                    {{ old('description') }}
-                                </textarea>
+                                    required>{{ old('description') }}</textarea>
 
                                 @if ($errors->has('description'))
                                     <span class="help-block">

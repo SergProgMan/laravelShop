@@ -45,8 +45,7 @@ class CategoriesController extends Controller
         ]);
         //return dd('store');
         //return $attributes;
-        $category = Category::create($attributes);
-        $category->save();
+        Category::create($attributes)->save();
 
         return redirect('backOffice/categories');
     }
@@ -68,11 +67,11 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
        // return dd('edit');
 
-        $category = Category::find($id);
+        //$category = Category::find($id);
 
         return view('backOffice.categories.edit', compact('category'));
     }
@@ -86,7 +85,16 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return dd('update');
+        $request->validate([
+            'name'=>['required','min:3'],
+            'description'=>['required', 'min:3']
+        ]);
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->save();
+
+        return redirect('backOffice/categories');
     }
 
     /**
@@ -97,6 +105,9 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        return dd('destroy');
+        //return dd('destroy');
+        Category::findOrFail($id)->delete();
+
+        return redirect('backOffice/categories');
     }
 }
