@@ -17,7 +17,7 @@ class CategoriesController extends Controller
     public function index()
     {
         //return dd('index');
-        $categories = Category::all();
+        $categories = Category::paginate(50);
         return view ('backOffice.categories.index', compact('categories'));
     }
 
@@ -99,7 +99,7 @@ class CategoriesController extends Controller
         $category = Category::find($id);
         $category->name = $request->name;
         $category->description = $request->description;
-      
+        
         if($request->iconPath){
             if(Storage::exists($category->iconPath)){
                 Storage::delete($category->iconPath);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackOffice;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\Category;
 
 class ProductsController extends Controller
 {
@@ -16,7 +17,7 @@ class ProductsController extends Controller
     public function index()
     {
         //return dd('index');
-        $products = Product::all();
+        $products = Product::paginate(50);
         return view('backOffice.products.index', compact('products'));
     }
 
@@ -28,7 +29,8 @@ class ProductsController extends Controller
     public function create()
     {
         //return dd('create');
-        return view('backOffice.products.create');
+        $categories = Category::all();
+        return view('backOffice.products.create', compact('categories'));
     }
 
     /**
@@ -40,24 +42,22 @@ class ProductsController extends Controller
     public function store(Request $request)
     {   
         $attributes = request()->validate([
+            'category_id' => 'required|integer',
             'name'=>['required','min:3'],
             'description'=>['required', 'min:3'],
             'price'=>['required', 'numeric'],
         ]);
 
-        //return $attributes;
-        Product::create($attributes)->save();
+        $product = new Product;
+        $product->fill($request->all());
+        if($request->category_id){
+            $category=Category::find($request->category_id);
+            $product->category()->associate($category);
+        }
+        return $product;
+        $product->save();
 
         return redirect('/backOffice/products');
-        
-        // $product = new Product;
-        // $product->name = request('name');
-        // $product->price = request('price');
-        // $product->description = request('description');
-
-        // $product->save();
-        // //return dd('store');
-        // return redirect('/control-panel/products');
     }
 
     /**
@@ -90,16 +90,19 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, Product $product)
     {
         $request->validate([
+            'category_id' => 'integer',
             'name'=>['required','min:3'],
             'description'=>['required', 'min:3'],
             'price'=>['required', 'numeric'],
         ]);
-        $product = Product::find($id);
-        $product->name = $request->name;
-        $product->description = $request->description;
+        $product->fill($request->all());
+        if($request->category_id){
+            $category=Category::find($request->category_id);
+            $product->category()->associate($category);
+        }
         $product->save();
 
         return redirect('backOffice/products');
