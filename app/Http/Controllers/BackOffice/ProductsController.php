@@ -16,7 +16,6 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //return dd('index');
         $products = Product::paginate(50);
         return view('backOffice.products.index', compact('products'));
     }
@@ -28,7 +27,6 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //return dd('create');
         $categories = Category::all();
         return view('backOffice.products.create', compact('categories'));
     }
@@ -48,16 +46,22 @@ class ProductsController extends Controller
             'price'=>['required', 'numeric'],
         ]);
 
-        $product = new Product;
-        $product->fill($request->all());
+        $product = Product::create($attributes);
+
+        if($request->imagePath){
+            $product->imagePath = $request->
+                file('imagePath')->store('/public/products');
+        }
+
         if($request->category_id){
             $category=Category::find($request->category_id);
             $product->category()->associate($category);
         }
-        return $product;
+
         $product->save();
 
-        return redirect('/backOffice/products');
+        return redirect('/backOffice/products')->
+            with(['status'=>'Product created']);
     }
 
     /**
@@ -80,7 +84,6 @@ class ProductsController extends Controller
     public function edit(Product $product)
     {
         return view('backOffice.products.edit', compact('product'));
-        //return dd('edit');
     }
 
     /**
@@ -103,9 +106,19 @@ class ProductsController extends Controller
             $category=Category::find($request->category_id);
             $product->category()->associate($category);
         }
+
+        if($request->imagePath){
+            if(Storage::exist($product->imagePath)){
+                Storage::delete($product->imagePath);
+            }
+            $product->imagePath = $request->file('imagePath')->
+                store('/public/categories');
+        }
+
         $product->save();
 
-        return redirect('backOffice/products');
+        return redirect('backOffice/products')->
+            with(['status'=>'Product updated']);
     }
 
     /**
@@ -118,7 +131,8 @@ class ProductsController extends Controller
     {
         Product::findOrFail($id)->delete();
 
-        return redirect ('backOffice/products');
+        return redirect ('backOffice/products')->
+            with(['status'=>'Product deleted']);
         //return dd('destroy');
     }
 }

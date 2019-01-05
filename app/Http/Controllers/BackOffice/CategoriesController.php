@@ -44,8 +44,7 @@ class CategoriesController extends Controller
             'name'=>['required','min:3'],
             'description'=>['required', 'min:3'],            
         ]);
-        //return dd('store');
-        //return $attributes;
+
         $category = Category::create($attributes);
         
         if($request->iconPath){
@@ -54,7 +53,8 @@ class CategoriesController extends Controller
 
         $category->save();
 
-        return redirect('backOffice/categories');
+        return redirect('backOffice/categories')->
+            with(['status'=>'Category created']);
     }
 
     /**
@@ -76,10 +76,6 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-       // return dd('edit');
-
-        //$category = Category::find($id);
-
         return view('backOffice.categories.edit', compact('category'));
     }
 
@@ -104,12 +100,14 @@ class CategoriesController extends Controller
             if(Storage::exists($category->iconPath)){
                 Storage::delete($category->iconPath);
             }
-            $category->iconPath = $request->file('iconPath')->store('/public/categories');
+            $category->iconPath = $request->file('iconPath')->
+                store('/public/categories');
         }
 
         $category->save();
         
-        return redirect('backOffice/categories');
+        return redirect('backOffice/categories')->
+            with(['status'=>'Category updated']);
     }
 
     /**
@@ -123,6 +121,7 @@ class CategoriesController extends Controller
         //return dd('destroy');
         Category::findOrFail($id)->delete();
 
-        return redirect('backOffice/categories');
+        return redirect('backOffice/categories')->
+            with(['status'=>'Category deleted']);
     }
 }
