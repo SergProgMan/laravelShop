@@ -31,7 +31,7 @@
                                     <td>{{ $product->price }}</td>
                                     <td>{{ $product->description }}</td>
                                     <td>
-                                        @isset($category->imagePath)
+                                        @isset($product->imagePath)
                                             <img src="{{Storage::url($product->imagePath) }}" width="50">
                                         @endisset
                                     </td>

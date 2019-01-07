@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Category;
+use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
@@ -49,8 +50,7 @@ class ProductsController extends Controller
         $product = Product::create($attributes);
 
         if($request->image){
-            $file = $request->file('image');
-            $product->imagePath = Storage::putFile('/public/products', $file);
+            $category->imagePath = Storage::putFile('public/products', $request->file('image'));
         }
 
         if($request->category_id){
