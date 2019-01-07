@@ -47,8 +47,11 @@ class CategoriesController extends Controller
 
         $category = Category::create($attributes);
         
-        if($request->iconPath){
-            $category->iconPath = $request->file('iconPath')->store('/public/categories');
+        if($request->icon){
+            //$file = $request->file('icon');
+            //$category->iconPath = $request->file('icon')->store('categories')
+            $category->iconPath = Storage::putFile('public/categories', $request->file('icon'));
+            //dd($category->iconPath);
         }
 
         $category->save();

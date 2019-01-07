@@ -13,8 +13,8 @@ class AddPicturesToProduct extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table){
-            $table->string('imagePath')->nullable;
+        Schema::table('products', function (Blueprint $table){
+            $table->string('imagePath')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddPicturesToProduct extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table){
+        Schema::table('products', function (Blueprint $table){
             $table->dropColumn('imagePath');
-        })
+        });
     }
 }

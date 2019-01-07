@@ -29,7 +29,7 @@
                                     @isset($category->iconPath)
                                         <img src="{{ Storage::url($category->iconPath) }}" width="50">
                                     @endisset
-                                    </td>
+                                </td>
                                 <td> 
                                     
                                     <form method="Post" action="{{ route('backOffice.categories.destroy', $category)}}">

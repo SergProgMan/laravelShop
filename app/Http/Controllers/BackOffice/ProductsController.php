@@ -48,9 +48,9 @@ class ProductsController extends Controller
 
         $product = Product::create($attributes);
 
-        if($request->imagePath){
-            $product->imagePath = $request->
-                file('imagePath')->store('/public/products');
+        if($request->image){
+            $file = $request->file('image');
+            $product->imagePath = Storage::putFile('/public/products', $file);
         }
 
         if($request->category_id){

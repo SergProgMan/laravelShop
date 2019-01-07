@@ -12,7 +12,10 @@
                     @include ('backOffice._session_status')
                     @include ('backOffice._errors_list')
 
-                    <form class="form-horizontal" method="POST" action="{{ route('backOffice.categories.store') }}" enctype="multipart/form-data">
+                    <form class="form-horizontal" 
+                        method="POST" 
+                        action="{{ route('backOffice.categories.store') }}" 
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         @include('backOffice.categories._form')

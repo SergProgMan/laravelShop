@@ -12,7 +12,7 @@
                     @include ('backOffice._session_status')
                     @include ('backOffice._errors_list')
 
-                    <form class="form-horizontal" method="POST" action="{{ route('backOffice.products.update', $category) }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('backOffice.products.update', $product) }}">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
 
