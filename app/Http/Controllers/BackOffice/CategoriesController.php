@@ -14,11 +14,20 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //return dd('index');
-        $categories = Category::paginate(50);
-        return view ('backOffice.categories.index', compact('categories'));
+        if($request->has('searchString')){
+            $searchString = $request->get('searchString');
+            $categories = Category::where('name', 'like', "%$searchString%")->paginate(10);
+        } else {
+            $categories = Category::paginate(10);
+        }
+
+        if($request->ajax()){
+            return $categories;
+        } else {
+            return view ('backOffice.categories.index', compact('categories'));
+        }   
     }
 
     /**
@@ -65,7 +74,7 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        return dd('show');
+        //return dd('show');
     }
 
     /**
