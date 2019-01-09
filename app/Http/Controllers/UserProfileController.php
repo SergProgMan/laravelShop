@@ -4,9 +4,25 @@ namespace App\Http\Controllers;
 
 use App\UserProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class UserProfileController extends Controller
 {
+    // public function __construct()
+    // {
+    //     // $user = Auth::user();
+    //     //$userProfile = $user->userProfile();
+
+    //     if(!$userProfile->exists()){
+
+    //         $userProfile = UserProfile::create();
+    //         $userProfile -> user_id = $user->id;
+    //         $userProfile -> save();
+    //     } 
+    // }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -44,9 +60,16 @@ class UserProfileController extends Controller
      * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function show(UserProfile $userProfile)
+    public function show()
     {
-        //
+        $user = Auth::user();
+        $userProfile = $user->userProfile();
+       
+        // //create empty userProfile
+        // if(!$userProfile->exists()){
+        //     dd('exist!');
+        // } else 
+        return view('userProfile.show', compact(['userProfile','user']));
     }
 
     /**
@@ -55,9 +78,11 @@ class UserProfileController extends Controller
      * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserProfile $userProfile)
+    public function edit(User $user)
     {
-        //
+        $user = Auth::user();
+        $userProfile = $user->userProfile();
+        return view('userProfile.edit', compact(['userProfile','user']));
     }
 
     /**

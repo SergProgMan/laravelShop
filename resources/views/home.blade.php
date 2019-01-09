@@ -1,23 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.menu')
 
 @section('content')
-<div class="container">
+<!-- Page Content -->
+  <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
+      <div class="col-lg-3">
+        <h1 class="my-4">Categories</h1>
+        <div class="list-group">
+            @foreach($categories as $category)
+            <a href="{{ route('category.show', $category) }}" class="list-group-item">{{ $category->name }}</a>
+        @endforeach
         </div>
+      </div>
     </div>
 </div>
-@endsection
+@endsection('content')

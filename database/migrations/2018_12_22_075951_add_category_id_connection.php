@@ -15,7 +15,8 @@ class AddcategoryIdConnection extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->integer('category_id')->unsigned()->nullable();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            ;
         });
     }
 

@@ -13,9 +13,12 @@ class CreateTableUserProfile extends Migration
      */
     public function up()
     {
-        Schema::create('user_profile', function (Blueprint $table) {
+        Schema::create('user_profiles', function (Blueprint $table) {
             $table->increments('id');
+            
             $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->string('country');
             $table->string('city');
             $table->text('address');
@@ -31,6 +34,6 @@ class CreateTableUserProfile extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_profile');
+        Schema::dropIfExists('user_profiles');
     }
 }
