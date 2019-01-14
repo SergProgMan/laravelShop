@@ -51,8 +51,33 @@ class UserProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = request()->validate([
+            'country' => 'required',
+            'city'=>'required',
+            'address'=>'required',
+            'phone'=>['required', 'numeric'],
+        ]);
+
+        $user = Auth::user();
+        $userProfile = $user->userProfile();
+
+        if(!$userProfile->exists()){
+            $userProfile = UserProfile::create($attributes);
+            $userProfile->user()->associate($user);
+        } else {
+            //dd($attributes);
+            $userProfile->fill(['country' => $attributes['country']]);
+            dd($userProfile);
+        }
+
+        $userProfile->save();
+        dd (auth()->id);
+        return dd($userProfile = $user->userProfile());
+
+        // return redirect('backOffice/products')->
+        //     with(['status'=>'Product updated']);
     }
+    
 
     /**
      * Display the specified resource.

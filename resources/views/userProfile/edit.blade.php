@@ -11,13 +11,14 @@
 
                         @include ('backOffice._errors_list')
                         
-                        <div class="form-horizontal">
+                        <form class="form-horizontal" method="POST" action="{{route('userProfile.store')}}">
+                            {{ csrf_field() }}
                             
                             <div class="form-group">
                                 <label for="country" class="col-md-4 control-label">Country</label>
                                 <div class="col-md-6">
                                     <input id="country" 
-                                        type="text" 
+                                        type="text"
                                         class="form-control" 
                                         name="country" 
                                         value="{{ $userProfile->country ?? null }}" required>
@@ -55,12 +56,13 @@
                                         name="phone" 
                                         value="{{ $userProfile->phone ?? null }}" required>
                                 </div>
-                            </div>                                
+                            </div>
+                            <button type="submit" class="btn btn-default btn-primary">
+                                Save
+                            </button>
                         </div>
                     </div>
-                </div>
-                <a class="btn btn-default btn-primary"
-                    href="{{ route('userProfile.edit', $user)}}">Save</a>
+                </div>               
             </div>
         </div>
     </div>

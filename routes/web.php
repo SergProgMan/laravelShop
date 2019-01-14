@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function(){
     //Route::get('/userProfile/{userProfile}', 'UserProfileController@show')->name('userProfile.show');
     Route::get('/userProfile', 'UserProfileController@show')->name('userProfile.show');
     Route::get('/userProfile/{userProfile}/edit', 'UserProfileController@edit')->name('userProfile.edit');
+    Route::post('/userProfile/store', 'UserProfileController@store')->name('userProfile.store');
 });
 
 

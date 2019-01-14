@@ -16,3 +16,18 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('create-admin {email} {pass}', function($email, $pass){
+    $user = new App\User;
+    $emailParts = explode('@', $email);
+    $user->email = $email;
+    $user->password = bcrypt($pass);
+    $user->name = $emailParts[0];
+    $user->admin = 1;
+    $result = $user->save();
+    if($result){
+        echo "Success! Admin user created!".PHP_EOL;
+    } else {
+        echo "Error!".PHP_EOL;
+    }
+});
