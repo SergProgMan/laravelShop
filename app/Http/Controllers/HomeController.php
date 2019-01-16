@@ -29,12 +29,4 @@ class HomeController extends Controller
         $categories = Category::all();
         return view('home', compact('categories'));
     }
-
-    public function showProduct(Product $product, Category $category){
-        return view('product', compact('product'));
-    }
-
-    public function showCategory(Category $category){
-        return view('category', compact('category'));
-    }
 }

@@ -17,17 +17,19 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('welcome');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/category/{category}', 'HomeController@showCategory')->name('category.show');
-Route::get('/{product}', 'HomeController@showProduct')->name('product.show')->prefix('{category}');
+Route::get('/category/{id}', 'CategoriesController@show')->name('category.show');
 
-Route::middleware('auth')->group(function(){
-    //Route::get('/userProfile/{userProfile}', 'UserProfileController@show')->name('userProfile.show');
-    Route::get('/userProfile', 'UserProfileController@show')->name('userProfile.show');
-    Route::get('/userProfile/{userProfile}/edit', 'UserProfileController@edit')->name('userProfile.edit');
-    Route::post('/userProfile/store', 'UserProfileController@store')->name('userProfile.store');
+Route::get('/product/{id}', 'ProductsController@show')->name('product.show');
+
+Route::middleware('auth')
+    ->prefix('userProfile')
+    ->name('userProfile.')
+    ->group(function(){
+    Route::get('/', 'UserProfileController@show')->name('show');
+    Route::get('edit', 'UserProfileController@edit')->name('edit');
+    Route::post('update', 'UserProfileController@update')->name('update');
 });
 
 

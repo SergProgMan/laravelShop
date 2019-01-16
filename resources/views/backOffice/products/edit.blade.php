@@ -9,8 +9,8 @@
 
                 <div class="panel-body">
 
-                    @include ('backOffice._session_status')
-                    @include ('backOffice._errors_list')
+                    @include ('_session_status')
+                    @include ('_errors_list')
 
                     <form class="form-horizontal" method="POST" action="{{ route('backOffice.products.update', $product) }}">
                         {{ csrf_field() }}

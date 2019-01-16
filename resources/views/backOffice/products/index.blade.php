@@ -8,7 +8,7 @@
                 <div class="panel-heading">Product control</div>
                     <div class="panel-body">
                         
-                        @include ('backOffice._session_status')
+                        @include ('_session_status')
                         
                         <table class="table">
                             <thead>

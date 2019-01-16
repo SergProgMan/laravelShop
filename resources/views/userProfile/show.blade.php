@@ -8,28 +8,28 @@
                 <div class="panel-heading">{{ $user->name }}'s profile</div>    
                     <div class="panel-body">
     
-                        {{-- @include ('backOffice._session_status')
-                        @include ('backOffice._errors_list') --}}
+                        @include ('_session_status')
+    
                         <div class="form-horizontal">
                             
                             <div class="form-group">
                                 <label for="country" class="col-md-4 control-label">Country</label>
-                                <p id="country" class="col-md-6">{{ $userProfile->country ?? "You need to add information" }}</p>
+                                <p id="country" class="col-md-6">{{ $user->userProfile->country ?? "You need to add information" }}</p>
                             </div>
                                 
                             <div class="form-group">
                                 <label for="city" class="col-md-4 control-label">City</label>
-                                <p class="col-md-6">{{ $userProfile->city ?? "You need to add information" }}</p>
+                                <p class="col-md-6">{{ $user->userProfile->city ?? "You need to add information" }}</p>
                             </div>
 
                             <div class="form-group">
                                 <label for="address" class="col-md-4 control-label">Address</label>
-                                <p class="col-md-6">{{ $userProfile->address ?? "You need to add information" }}</p>
+                                <p class="col-md-6">{{ $user->userProfile->address ?? "You need to add information" }}</p>
                             </div>
 
                             <div class="form-group">
                                 <label for="phone" class="col-md-4 control-label">Phone</label>
-                                <p class="col-md-6">{{ $userProfile->phone ?? "You need to add information" }}</p>
+                                <p class="col-md-6">{{ $user->userProfile->phone ?? "You need to add information" }}</p>
                             </div>                                
                         </div>
                     </div>

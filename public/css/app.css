@@ -8373,3 +8373,7 @@ button.close {
   }
 }
 
+.products-list .card {
+  margin: 0 0 40px 0;
+}
+

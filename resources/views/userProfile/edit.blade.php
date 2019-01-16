@@ -9,9 +9,9 @@
                     <div class="panel-body">
     
 
-                        @include ('backOffice._errors_list')
+                        @include ('_errors_list')
                         
-                        <form class="form-horizontal" method="POST" action="{{route('userProfile.store')}}">
+                        <form class="form-horizontal" method="POST" action="{{route('userProfile.update')}}">
                             {{ csrf_field() }}
                             
                             <div class="form-group">
@@ -21,7 +21,7 @@
                                         type="text"
                                         class="form-control" 
                                         name="country" 
-                                        value="{{ $userProfile->country ?? null }}" required>
+                                        value="{{ $user->userProfile->country ?? null }}" required>
                                 </div>
                             </div>
                                 
@@ -32,7 +32,7 @@
                                         type="text" 
                                         class="form-control" 
                                         name="city" 
-                                        value="{{ $userProfile->city ?? null }}" required>
+                                        value="{{ $user->userProfile->city ?? null }}" required>
                                 </div>
                             </div>
 
@@ -43,7 +43,7 @@
                                         type="text" 
                                         class="form-control" 
                                         name="address" 
-                                        value="{{  $userProfile->address ?? null }}" required>
+                                        value="{{  $user->userProfile->address ?? null }}" required>
                                 </div>
                             </div>
 
@@ -54,7 +54,7 @@
                                         type="text" 
                                         class="form-control" 
                                         name="phone" 
-                                        value="{{ $userProfile->phone ?? null }}" required>
+                                        value="{{ $user->userProfile->phone ?? null }}" required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-default btn-primary">
