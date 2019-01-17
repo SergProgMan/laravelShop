@@ -17,11 +17,19 @@
 
 Auth::routes();
 
+//basic pages
 Route::get('/', 'HomeController@index')->name('home');
 
+//category pages
 Route::get('/category/{id}', 'CategoriesController@show')->name('category.show');
 
+//product pages
 Route::get('/product/{id}', 'ProductsController@show')->name('product.show');
+
+//cart routes
+Route::get('/cart', 'CartController@show')->name('cart.show');
+Route::post('/cart/add', 'CartController@add')->name('cart.add');
+
 
 Route::middleware('auth')
     ->prefix('userProfile')
