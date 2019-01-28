@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cart;
+use App\Product;
 
 class CartController extends Controller
 {
@@ -13,8 +14,16 @@ class CartController extends Controller
         return view ('cart', compact('cart'));
     }
 
-    public function add()
+    public function add(Request $request)
     {
+        $cart = Cart::get();
+        $product = Product::find($request->product_id);
+        if(!$product){
+            abort(404);
+        }
+         
+      $cart->add($product);
 
+      return $cart;
     }
 }

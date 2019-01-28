@@ -30,7 +30,7 @@ Route::get('/product/{id}', 'ProductsController@show')->name('product.show');
 Route::get('/cart', 'CartController@show')->name('cart.show');
 Route::post('/cart/add', 'CartController@add')->name('cart.add');
 
-
+//user profile
 Route::middleware('auth')
     ->prefix('userProfile')
     ->name('userProfile.')
@@ -40,7 +40,7 @@ Route::middleware('auth')
     Route::post('update', 'UserProfileController@update')->name('update');
 });
 
-
+//back office
 Route::middleware(['auth','isAdmin'])->namespace('BackOffice')->prefix('backOffice')->name('backOffice.')->group(function(){ //create group of routs
     Route::resource('/products','ProductsController');
     Route::resource('/categories', 'CategoriesController');

@@ -11334,7 +11334,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(52);
+module.exports = __webpack_require__(53);
 
 
 /***/ }),
@@ -11349,8 +11349,9 @@ module.exports = __webpack_require__(52);
  */
 
 __webpack_require__(12);
+__webpack_require__(35);
 
-window.Vue = __webpack_require__(35);
+window.Vue = __webpack_require__(36);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -11358,13 +11359,13 @@ window.Vue = __webpack_require__(35);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(38));
+Vue.component('example-component', __webpack_require__(39));
 
 var app = new Vue({
     el: '#app'
 });
 
-var typeahead = __webpack_require__(42);
+var typeahead = __webpack_require__(43);
 var jquery = __webpack_require__(3);
 
 var categoryIdInput = jquery('#category_id');
@@ -31909,6 +31910,47 @@ module.exports = function spread(callback) {
 
 /***/ }),
 /* 35 */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+    var addToCartButtonsSelector = '.btn-add-to-cart';
+    var addToCartButtons = $(addToCartButtonsSelector);
+    var csrfToken = $('meta[name=csrf-token]').attr("content");
+    addToCartButtons.each(function () {
+
+        var curr = $(this);
+        curr.click(function (event) {
+            event.preventDefault();
+
+            var addToCartUrl = $('meta[name=add-to-cart-link]').attr("content");
+
+            var request = $.ajax({
+                url: addToCartUrl,
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                data: {
+                    product_id: curr.data('product-id')
+                }
+            });
+
+            request.done(function (answer) {
+                var cart = $.parseJSON(answer);
+
+                var headerCartLinkRl = $('.header-cart-link');
+                headerCartLinkRl.find('span').text(cartProductCount);
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+                alert("Request failed: " + textStatus);
+            });
+        });
+    });
+});
+
+/***/ }),
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43002,10 +43044,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(36).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(37).setImmediate))
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -43061,7 +43103,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(37);
+__webpack_require__(38);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -43075,7 +43117,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -43268,15 +43310,15 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(5)))
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(39)
+var normalizeComponent = __webpack_require__(40)
 /* script */
-var __vue_script__ = __webpack_require__(40)
+var __vue_script__ = __webpack_require__(41)
 /* template */
-var __vue_template__ = __webpack_require__(41)
+var __vue_template__ = __webpack_require__(42)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -43315,7 +43357,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -43424,7 +43466,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43453,7 +43495,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -43496,12 +43538,12 @@ if (false) {
 }
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // vendor
-var xtend = __webpack_require__(43);
-var dom = __webpack_require__(44);
+var xtend = __webpack_require__(44);
+var dom = __webpack_require__(45);
 
 var defaults = {
     source: [],
@@ -43801,7 +43843,7 @@ module.exports = Typeahead;
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = extend
@@ -43821,15 +43863,15 @@ function extend(target) {
 }
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var domify = __webpack_require__(45);
-var classes = __webpack_require__(46);
-var matches = __webpack_require__(47);
-var event = __webpack_require__(48);
-var mutation = __webpack_require__(51);
+var domify = __webpack_require__(46);
+var classes = __webpack_require__(47);
+var matches = __webpack_require__(48);
+var event = __webpack_require__(49);
+var mutation = __webpack_require__(52);
 
 /**
  * Expose `dom()`.
@@ -44560,7 +44602,7 @@ proto.empty = function() {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 
@@ -44639,7 +44681,7 @@ module.exports = function(html){
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports) {
 
 
@@ -44774,7 +44816,7 @@ ClassList.prototype.has = function(name){
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 
@@ -44803,7 +44845,7 @@ module.exports = function match(el, selector) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -44887,8 +44929,8 @@ exports.emit = function(el, name, opts) {
     return el.dispatchEvent(ev);
 };
 
-var initSignatures = __webpack_require__(49);
-var types = __webpack_require__(50);
+var initSignatures = __webpack_require__(50);
+var types = __webpack_require__(51);
 var typeOf = (function () {
     var typs = {};
     for (var key in types) {
@@ -44905,19 +44947,19 @@ var typeOf = (function () {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = {"initEvent":["type","bubbles","cancelable"],"initUIEvent":["type","bubbles","cancelable","view","detail"],"initMouseEvent":["type","bubbles","cancelable","view","detail","screenX","screenY","clientX","clientY","ctrlKey","altKey","shiftKey","metaKey","button","relatedTarget"],"initMutationEvent":["type","bubbles","cancelable","relatedNode","prevValue","newValue","attrName","attrChange"],"initKeyEvent":["type","bubbles","cancelable","view","ctrlKey","altKey","shiftKey","metaKey","keyCode","charCode"]}
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports) {
 
 module.exports = {"MouseEvent":["click","mousedown","mouseup","mouseover","mousemove","mouseout"],"KeyEvent":["keydown","keyup","keypress"],"MutationEvent":["DOMSubtreeModified","DOMNodeInserted","DOMNodeRemoved","DOMNodeRemovedFromDocument","DOMNodeInsertedIntoDocument","DOMAttrModified","DOMCharacterDataModified"],"HTMLEvent":["load","unload","abort","error","select","change","submit","reset","focus","blur","resize","scroll"],"UIEvent":["DOMFocusIn","DOMFocusOut","DOMActivate"]}
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports) {
 
 
@@ -44983,7 +45025,7 @@ module.exports.empty = function(parent) {
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -7,7 +7,12 @@ class Cart
 
     public $products = [];
 
-    public static function get(){
+    private static $carInstance = null;
+
+    private function __constrct(){}
+
+    public static function get()
+    {
         $request = app('Illuminate\Http\Request');
         return $request->session()->get('cart', function() use ($request){
             $cart = new Cart;
@@ -16,18 +21,40 @@ class Cart
         });
     }
 
-    public function add($productId){
+    public function add($product)
+    {
+        $productId = $product->id;
+
         if(isset($this->products[$productId])){
             $cartProduct = $this->products[$productId];
             $cartProduct -> quantity++;
         } else {
-            $cartProduct= new CartProduct($productId);
+            $cartProduct= new CartProduct($product);
             $this->products[$productId] = $cartProduct;
         }
-         
     }
 
-    public function all(){
-        return $this->products; 
+    public function __toString(){
+        $cartObj = [];
+        $cartObj['products'] = $this->products;
+        $cartObj['cartProductsCount'] = $this->getCartProductsCount();
+        return json_encode($cartObj);
+    }
+
+    public function getCartProductsCount(){
+        $count = 0;
+        foreach ($this->products as $product){
+            $count += $product->quantity;
+        } 
+        return $count;
+    } 
+
+    public function getTotalPrice(){
+        $price = 0;
+        foreach($this->products as $product){
+            $price += $product->getTotalPrice();
+        }
+        return $price;
+
     }
 }

@@ -8,6 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta name="add-to-cart-link" content="{{ route('cart.add') }}">
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
@@ -41,8 +43,12 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ route('cart.show') }}">Cart</a></li>
-                        <!-- Authentication Links -->
+                        <?php $cartCount = App\Cart::get()->getCartProductsCount(); ?>
+                        <li><a class="header-cart-link" href="{{ route('cart.show') }}">
+                            Cart(<span>{{ $cartCount }}</span>)
+                        </a></li>
+                        
+                            <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
