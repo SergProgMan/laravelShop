@@ -13,12 +13,15 @@ class Cart
 
     public static function get()
     {
-        $request = app('Illuminate\Http\Request');
-        return $request->session()->get('cart', function() use ($request){
-            $cart = new Cart;
-            $request->session()->put('cart',$cart);
-            return $cart;
-        });
+        if(self::$carInstance == null){
+            $request = app('Illuminate\Http\Request');
+            self::$carInstance = $request->session()->get('cart', function() use ($request){
+                $cart = new Cart;
+                $request->session()->put('cart',$cart);
+                return $cart;
+            }); 
+        }
+        return self::$carInstance;       
     }
 
     public function add($product)
@@ -34,10 +37,47 @@ class Cart
         }
     }
 
+    public function update($productId, $quantity)
+    {
+        if($quantity <= 0){
+            return;
+        }
+
+        if(!isset($this->products[$productId])){
+            return;
+        }
+
+        $this->products[$productId]->quantity = intval($quantity);
+    }
+
+    public function delete($productId){
+        if(!isset($this->products[$productId])){
+            return;
+        }
+
+        unset($this->products[$productId]);
+    }
+
+    public function clear(){
+        $this->products = [];
+    }
+
     public function __toString(){
         $cartObj = [];
-        $cartObj['products'] = $this->products;
+        $productsData = [];
+        foreach($this->products as $product){
+            $currProduct = [
+                'productId' => $product -> productId,
+                'price' => $product -> price,
+                'quantity' => $product -> quantity,
+                'totalPrice' => $product -> getTotalPrice(),
+            ];
+            $productsData[$product->productId] = $currProduct;
+        }
+
+        $cartObj['products'] = $productsData;
         $cartObj['cartProductsCount'] = $this->getCartProductsCount();
+        $cartObj['cartTotalPrice'] = $this->getTotalPrice();
         return json_encode($cartObj);
     }
 
@@ -50,11 +90,15 @@ class Cart
     } 
 
     public function getTotalPrice(){
-        $price = 0;
+        $totalPrice = 0;
         foreach($this->products as $product){
-            $price += $product->getTotalPrice();
+            $totalPrice += $product->getTotalPrice();
         }
-        return $price;
+        return $totalPrice;
 
+    }
+
+    public function isEmpty(){
+        return count($this->products) == 0;
     }
 }

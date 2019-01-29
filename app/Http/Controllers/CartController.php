@@ -26,4 +26,12 @@ class CartController extends Controller
 
       return $cart;
     }
+
+    public function update(Request $request){
+        
+    }
+
+    public function delete(Request $request){
+
+    }
 }

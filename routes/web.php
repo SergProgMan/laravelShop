@@ -29,6 +29,8 @@ Route::get('/product/{id}', 'ProductsController@show')->name('product.show');
 //cart routes
 Route::get('/cart', 'CartController@show')->name('cart.show');
 Route::post('/cart/add', 'CartController@add')->name('cart.add');
+Route::post('/cart/delete', 'CartController@delete')->name('cart.delete');
+Route::post('/cart/update', 'CartController@update')->name('cart.update');
 
 //user profile
 Route::middleware('auth')

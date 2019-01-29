@@ -9,6 +9,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta name="add-to-cart-link" content="{{ route('cart.add') }}">
+    <meta name="update-cart-link" content="{{ route('cart.update') }}">
+    <meta name="delete-cart-link" content="{{ route('cart.delete') }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
