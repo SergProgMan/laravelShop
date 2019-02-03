@@ -31966,7 +31966,7 @@ $(document).ready(function () {
     var updateCartData = function updateCartData(cart) {
         cartTableEl.find('tbody tr').each(function () {
             var currTr = $(this);
-            var currProduct = currTr.data('product-id');
+            var currProductId = currTr.data('product-id');
 
             var currProductData = cart.products[currProductId];
 
@@ -31996,7 +31996,7 @@ $(document).ready(function () {
                 return;
             }
 
-            if (value <= 0 && vaue !== "") {
+            if (value <= 0 && value !== "") {
                 var neededValue = quantityOldValue !== false ? quatityOldValue : 1;
                 quantityInput.val(neededValue);
                 return;

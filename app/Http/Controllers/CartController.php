@@ -28,10 +28,18 @@ class CartController extends Controller
     }
 
     public function update(Request $request){
-        
+        $cart = Cart::get();
+        $productId = $request->product_id;
+        $quantity = $request->quantity;
+        $cart->update($productId, $quantity);
+        return $cart;
     }
 
     public function delete(Request $request){
+        $cart = Cart::get();
+        $productId = $request->product_id;
+        $cart->delete($productId);
 
+        return $cart;
     }
 }

@@ -31,6 +31,10 @@ Route::get('/cart', 'CartController@show')->name('cart.show');
 Route::post('/cart/add', 'CartController@add')->name('cart.add');
 Route::post('/cart/delete', 'CartController@delete')->name('cart.delete');
 Route::post('/cart/update', 'CartController@update')->name('cart.update');
+ 
+//order routes
+Route::get('/order', 'OrdersController@create')->name('order.create');
+Route::post('/order', 'OrdersController@store')->name('order.store');
 
 //user profile
 Route::middleware('auth')

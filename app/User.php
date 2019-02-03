@@ -27,7 +27,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function UserProfile(){
+    public function userProfile(){
         return $this->hasOne('App\UserProfile');
     }
+
+    public function myOrders(){
+        return $this->hasMany('App\Order');
+    }
+
+    protected $dispatchesEvents =[
+        'created' => UserCreated::class,
+    ];
 }

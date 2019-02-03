@@ -34,7 +34,7 @@
             <br>
             <strong>Total price:</strong><strong class="cart-totals-price"> {{ $cart->getTotalPrice() }}</strong>
             <br>
-            <a href="{{ route('order.create') }}">Checkout</a>
+            <a class="btn btn-info" href="{{ route('order.create') }}">Checkout</a>
         </div>
     </div>
 </div>

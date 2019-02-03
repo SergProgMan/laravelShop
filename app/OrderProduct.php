@@ -15,4 +15,5 @@ class OrderProduct extends Model
     {
         return $this->belongsTo('App\Product');
     }
+    
 }

@@ -55,7 +55,7 @@ $(document).ready(function(){
     let updateCartData = function(cart){
         cartTableEl.find('tbody tr').each(function(){
             let currTr = $(this);
-            let currProduct = currTr.data('product-id');
+            let currProductId = currTr.data('product-id');
 
             let currProductData =cart.products[currProductId];
 
@@ -85,7 +85,7 @@ $(document).ready(function(){
                 return;
             }
 
-            if(value <= 0 && vaue !== ""){
+            if(value <= 0 && value !== ""){
                 let neededValue = quantityOldValue !== false ? quatityOldValue : 1;
                 quantityInput.val(neededValue);
                 return;
