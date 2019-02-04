@@ -21,7 +21,6 @@ class CreateTableUserProfile extends Migration
 
             $table->string('city');
             $table->string('street');
-            $table->text('address');
             $table->string('phone');
             $table->string('bio');
             $table->timestamps();
