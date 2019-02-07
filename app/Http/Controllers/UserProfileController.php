@@ -18,25 +18,27 @@ class UserProfileController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'country' => 'max:200',
-            'city'=>'max:200',
-            'address'=>'max:200',
-            'phone'=>'max:200',
+            'full_name' => 'max:100',
+            'street' => 'max:200',
+            'city' => 'max:200',
+            'phone' => 'max:200',
+            'bio' => 'max:1000',
         ]);
 
         $user = Auth::user();
 
-        if(!$user->userProfile){
-            $userProfile =new UserProfile;
+        if (!$user->profile) {
+            $userProfile = new UserProfile;
             $userProfile->user()->associate($user);
         } else {
-            $userProfile = $user->userProfile;
+            $userProfile = $user->profile;
         }
-        
-        $userProfile->country = $request->country;
+
+        $userProfile->full_name = $request->full_name;
+        $userProfile->street = $request->street;
         $userProfile->city = $request->city;
-        $userProfile->address = $request->address;
         $userProfile->phone = $request->phone;
+        $userProfile->bio = $request->bio;
 
         $userProfile->save();
       

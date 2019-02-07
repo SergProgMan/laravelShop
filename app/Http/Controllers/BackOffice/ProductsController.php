@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\BackOffice;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Product;
 use App\Category;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
 
 class ProductsController extends Controller
 {
@@ -17,8 +17,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(50);
-        return view('backOffice.products.index', compact('products'));
+        $products = Product::paginate(10); 
+        return view('back-office.products.index', compact('products'));
     }
 
     /**
@@ -28,8 +28,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('backOffice.products.create', compact('categories'));
+        return view('back-office.products.create');
     }
 
     /**
@@ -39,100 +38,85 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-        $attributes = request()->validate([
+    {
+        $request->validate([
             'category_id' => 'required|integer',
-            'name'=>['required','min:3'],
-            'description'=>['required', 'min:3'],
-            'price'=>['required', 'numeric'],
+            'name' => 'required|max:200',
+            'description' => 'required',
+            'price' => 'required|numeric',
         ]);
 
-        $product = Product::create($attributes);
-
-        if($request->image){
-            $category->imagePath = Storage::putFile('public/products', $request->file('image'));
-        }
-
-        if($request->category_id){
-            $category=Category::find($request->category_id);
+        $product = new Product;
+        $product->fill($request->all());
+        if ($request->category_id) {
+            $category = Category::find($request->category_id);
             $product->category()->associate($category);
         }
-
         $product->save();
 
-        return redirect('/backOffice/products')->
-            with(['status'=>'Product created']);
+        return redirect(route('back-office.products.index'))
+            ->with(['status' => 'Product created!']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        return dd('show');
+        return $product;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
     {
-        return view('backOffice.products.edit', compact('product'));
+        return view('back-office.products.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, Product $product)
+    public function update(Request $request, Product $product)
     {
         $request->validate([
             'category_id' => 'integer',
-            'name'=>['required','min:3'],
-            'description'=>['required', 'min:3'],
-            'price'=>['required', 'numeric'],
+            'name' => 'max:200',
+            'description' => '',
+            'price' => 'numeric',
         ]);
+
         $product->fill($request->all());
-        if($request->category_id){
-            $category=Category::find($request->category_id);
+        if ($request->category_id) {
+            $category = Category::find($request->category_id);
             $product->category()->associate($category);
         }
-
-        if($request->imagePath){
-            if(Storage::exist($product->imagePath)){
-                Storage::delete($product->imagePath);
-            }
-            $product->imagePath = $request->file('imagePath')->
-                store('/public/categories');
-        }
-
         $product->save();
 
-        return redirect('backOffice/products')->
-            with(['status'=>'Product updated']);
+        return redirect(route('back-office.products.index'))
+            ->with(['status' => 'Product updated!']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        Product::findOrFail($id)->delete();
-
-        return redirect ('backOffice/products')->
-            with(['status'=>'Product deleted']);
-        //return dd('destroy');
+        $product->delete();
+        return redirect(route('back-office.products.index'))
+        ->with(['status' => 'Product deleted!']);
     }
 }

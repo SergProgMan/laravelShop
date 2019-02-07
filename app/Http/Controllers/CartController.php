@@ -11,31 +11,34 @@ class CartController extends Controller
     public function show()
     {
         $cart = Cart::get();
-        return view ('cart', compact('cart'));
+        return view('cart', compact('cart'));
     }
 
     public function add(Request $request)
     {
         $cart = Cart::get();
         $product = Product::find($request->product_id);
-        if(!$product){
+        if (!$product) {
             abort(404);
         }
-         
-      $cart->add($product);
 
-      return $cart;
+        $cart->add($product);
+        
+        return $cart;
     }
 
-    public function update(Request $request){
+    public function update(Request $request) 
+    {
         $cart = Cart::get();
         $productId = $request->product_id;
         $quantity = $request->quantity;
         $cart->update($productId, $quantity);
+
         return $cart;
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request) 
+    {
         $cart = Cart::get();
         $productId = $request->product_id;
         $cart->delete($productId);

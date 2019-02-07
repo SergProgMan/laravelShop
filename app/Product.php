@@ -3,16 +3,30 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'price'];
+    use SoftDeletes;
 
-    public function getShortDescriptionAttribute(){
+    public $fillable = ['name', 'description', 'price'];
+
+    protected $dates = [
+        'deleted_at'
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
+    }
+
+    public function getShortDescriptionAttribute()
+    {
         return str_limit($this->description, 50);
     }
-    
-    public function category(){
-        return $this->belongsTo(Category::class);
+
+    public function scopeLatest($query)
+    {
+        return $query->orderBy('created_at', 'desc')->limit(9);
     }
 }

@@ -1,5 +1,11 @@
+@extends('layouts.app')
 
-@extends('layouts.menu')
+<?php 
+$full_name = optional(optional($user)->profile)->full_name;
+$street = optional(optional($user)->profile)->street;
+$city = optional(optional($user)->profile)->city;
+$phone = optional(optional($user)->profile)->phone;
+?>
 
 @section('content')
 <div class="container">
@@ -19,27 +25,25 @@
                             class="form-control" 
                             id="full_name" 
                             placeholder="Enter your full name"
-                            value="{{ old('full_name') }}">
+                            value="{{ old('full_name', $full_name) }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="street">Street</label>
+                    <label for="np_city">Enter city name</label>
                     <input type="text" 
-                        name="street" 
+                        name="np_city" 
                         class="form-control" 
-                        id="street" 
-                        placeholder="Enter your street"
-                        value="{{ old('street') }}">
+                        id="np_city" 
+                        value="" data-callback-url="{{ route('np.search_city') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" 
-                        name="city" 
+                        <label for="np_warehouse">Choose warehouse from dropdown</label>
+                        <select 
                         class="form-control" 
-                        id="city" 
-                        placeholder="Enter your city"
-                        value="{{ old('city') }}">
+                        id="np_warehouse" 
+                        name="np_warehouse"
+                        data-callback-url="{{ route('np.search_warehouse') }}"></select>
                 </div>
 
                 <div class="form-group">
@@ -49,7 +53,7 @@
                             class="form-control" 
                             id="phone" 
                             placeholder="Enter your phone"
-                            value="{{ old('phone') }}">
+                            value="{{ old('phone', $phone) }}">
                 </div>
 
                 <div class="form-group">

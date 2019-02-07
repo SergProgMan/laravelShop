@@ -16,7 +16,7 @@ class OrdersIsEmptyCart
      */
     public function handle($request, Closure $next)
     {
-        $start = Cart::get();
+        $cart = Cart::get();
 
         if($cart->isEmpty()){
             return redirect('/');

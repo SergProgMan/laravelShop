@@ -33,8 +33,20 @@ Route::post('/cart/delete', 'CartController@delete')->name('cart.delete');
 Route::post('/cart/update', 'CartController@update')->name('cart.update');
  
 //order routes
-Route::get('/order', 'OrdersController@create')->name('order.create');
-Route::post('/order', 'OrdersController@store')->name('order.store');
+Route::middleware('orders_is_empty_cart')
+    ->name('order.')
+    ->group(function() {
+        Route::get('/order', 'OrdersController@create')->name('create');
+        Route::post('/order', 'OrdersController@store')->name('store');
+        
+    });
+
+Route::post('/order/payment_result', 'OrdersController@paymentResult')->name('order.payment_result');
+Route::post('/order/callback', 'OrdersController@callback')->name('order.callback');
+
+Route::post('/np/search_city', 'NovaPoshtaController@searchCity')->name('np.search_city');
+Route::post('/np/search_warehouse', 'NovaPoshtaController@searchWarehouse')->name('np.search_warehouse');
+
 
 //user profile
 Route::middleware('auth')
@@ -47,7 +59,22 @@ Route::middleware('auth')
 });
 
 //back office
-Route::middleware(['auth','isAdmin'])->namespace('BackOffice')->prefix('backOffice')->name('backOffice.')->group(function(){ //create group of routs
+Route::middleware(['auth','isAdmin'])
+    ->namespace('BackOffice')
+    ->prefix('backOffice')
+    ->name('backOffice.')
+    ->group(function(){ //create group of routs
+
     Route::resource('/products','ProductsController');
     Route::resource('/categories', 'CategoriesController');
+
+    Route::get('orders', 'OrdersController@index')->name('orders.index');
+    Route::get('orders/new', 'OrdersController@new')->name('orders.new');
+    Route::get('orders/{order}', 'OrdersController@show')->name('orders.show');
+});
+
+Route::get('/test', function(){
+    $order = App\Order::find(7);
+    //dd($order);
+    return $order->online_paid_at->format('d.m.Y');
 });

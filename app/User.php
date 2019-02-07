@@ -18,7 +18,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
-
+    
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -28,15 +28,25 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function userProfile(){
+    /**
+     * Function for check is user admin
+     */
+    public function isAdmin()
+    {
+        return $this->admin === 1;
+    }
+
+    public function profile()
+    {
         return $this->hasOne('App\UserProfile');
     }
 
-    public function myOrders(){
+    public function myOrders()
+    {
         return $this->hasMany('App\Order');
     }
 
-    protected $dispatchesEvents =[
+    protected $dispatchesEvents = [
         'created' => UserCreated::class,
     ];
 }

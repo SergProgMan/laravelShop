@@ -16,4 +16,7 @@ class OrderProduct extends Model
         return $this->belongsTo('App\Product');
     }
     
+    public function getTotalPrice(){
+        return ceil($this->quantity * $this->price);
+    }
 }

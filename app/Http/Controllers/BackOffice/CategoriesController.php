@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\BackOffice;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use App\Category;
 
 class CategoriesController extends Controller
 {
@@ -16,18 +16,18 @@ class CategoriesController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->has('searchString')){
+        if ($request->has('searchString')) {
             $searchString = $request->get('searchString');
             $categories = Category::where('name', 'like', "%$searchString%")->paginate(10);
         } else {
             $categories = Category::paginate(10);
         }
 
-        if($request->ajax()){
+        if ($request->ajax()) {
             return $categories;
         } else {
-            return view ('backOffice.categories.index', compact('categories'));
-        }   
+            return view('back-office.categories.index', compact('categories')); 
+        }
     }
 
     /**
@@ -37,7 +37,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view ('backOffice.categories.create');
+        return view('back-office.categories.create');
     }
 
     /**
@@ -48,89 +48,85 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //return dd($request);
-        $attributes = request()->validate([
-            'name'=>['required','min:3'],
-            'description'=>['required', 'min:3'],            
+        $request->validate([
+            'name' => 'required|max:200',
+            'description' => 'required',
         ]);
-
-        $category = Category::create($attributes);
         
-        if($request->icon){
-            $category->iconPath = Storage::putFile('public/categories', $request->file('icon'));
+        $category = new Category;
+        $category->name = $request->name;
+        $category->description = $request->description;
+        if ($request->icon) {
+            $file = $request->file('icon');
+            $category->icon_path = Storage::putFile('public/categories', $file);
         }
 
         $category->save();
 
-        return redirect('backOffice/categories')->
-            with(['status'=>'Category created']);
+        return redirect(route('back-office.categories.index'))
+            ->with(['status' => 'Category created!']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //return dd('show');
+        return $category;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
     {
-        return view('backOffice.categories.edit', compact('category'));
+        return view('back-office.categories.edit', ['category' => $category]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name'=>['required','min:3'],
-            'description'=>['required', 'min:3']
+            'name' => 'required|max:200',
+            'description' => 'required',
         ]);
-        $category = Category::find($id);
-        $category->name = $request->name;
-        $category->description = $request->description;
-        
-        if($request->iconPath){
-            if(Storage::exists($category->iconPath)){
-                Storage::delete($category->iconPath);
+        $category->fill($request->all());
+        if ($request->icon) {
+            if (Storage::exists($category->icon_path)) {
+                Storage::delete($category->icon_path);
             }
-            $category->iconPath = $request->file('iconPath')->
-                store('/public/categories');
+            $category->icon_path = $request->file('icon')->store('public/categories');
         }
-
         $category->save();
-        
-        return redirect('backOffice/categories')->
-            with(['status'=>'Category updated']);
+        return redirect(route('back-office.categories.index'))
+            ->with(['status' => 'Category saved!']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //return dd('destroy');
-        Category::findOrFail($id)->delete();
-
-        return redirect('backOffice/categories')->
-            with(['status'=>'Category deleted']);
+        if (Storage::exists($category->icon_path)) {
+            Storage::delete($category->icon_path);
+        }
+        $category->delete();
+        return redirect(route('back-office.categories.index'))
+            ->with(['status' => 'Category deleted!']);
     }
 }
