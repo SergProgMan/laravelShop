@@ -18,7 +18,7 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Product::paginate(10); 
-        return view('back-office.products.index', compact('products'));
+        return view('backOffice.products.index', compact('products'));
     }
 
     /**
@@ -28,7 +28,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('back-office.products.create');
+        return view('backOffice.products.create');
     }
 
     /**
@@ -54,7 +54,7 @@ class ProductsController extends Controller
         }
         $product->save();
 
-        return redirect(route('back-office.products.index'))
+        return redirect(route('backOffice.products.index'))
             ->with(['status' => 'Product created!']);
     }
 
@@ -77,7 +77,7 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('back-office.products.edit', compact('product'));
+        return view('backOffice.products.edit', compact('product'));
     }
 
     /**
@@ -103,7 +103,7 @@ class ProductsController extends Controller
         }
         $product->save();
 
-        return redirect(route('back-office.products.index'))
+        return redirect(route('backOffice.products.index'))
             ->with(['status' => 'Product updated!']);
     }
 
@@ -116,7 +116,7 @@ class ProductsController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect(route('back-office.products.index'))
+        return redirect(route('backOffice.products.index'))
         ->with(['status' => 'Product deleted!']);
     }
 }

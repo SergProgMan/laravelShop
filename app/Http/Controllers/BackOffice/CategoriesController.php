@@ -26,7 +26,7 @@ class CategoriesController extends Controller
         if ($request->ajax()) {
             return $categories;
         } else {
-            return view('back-office.categories.index', compact('categories')); 
+            return view('backOffice.categories.index', compact('categories')); 
         }
     }
 
@@ -37,7 +37,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('back-office.categories.create');
+        return view('backOffice.categories.create');
     }
 
     /**
@@ -63,7 +63,7 @@ class CategoriesController extends Controller
 
         $category->save();
 
-        return redirect(route('back-office.categories.index'))
+        return redirect(route('backOffice.categories.index'))
             ->with(['status' => 'Category created!']);
     }
 
@@ -86,7 +86,7 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('back-office.categories.edit', ['category' => $category]);
+        return view('backOffice.categories.edit', ['category' => $category]);
     }
 
     /**
@@ -110,7 +110,7 @@ class CategoriesController extends Controller
             $category->icon_path = $request->file('icon')->store('public/categories');
         }
         $category->save();
-        return redirect(route('back-office.categories.index'))
+        return redirect(route('backOffice.categories.index'))
             ->with(['status' => 'Category saved!']);
     }
 
@@ -126,7 +126,7 @@ class CategoriesController extends Controller
             Storage::delete($category->icon_path);
         }
         $category->delete();
-        return redirect(route('back-office.categories.index'))
+        return redirect(route('backOffice.categories.index'))
             ->with(['status' => 'Category deleted!']);
     }
 }

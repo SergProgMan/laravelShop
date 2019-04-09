@@ -11,17 +11,17 @@ class OrdersController extends Controller
     public function index()
     {
         $orders = Order::orderBy('created_at', 'desc')->paginate(10);
-        return view('back-office.orders.index', compact('orders'));
+        return view('backOffice.orders.index', compact('orders'));
     }
 
     public function new()
     {
         $orders = Order::orderBy('created_at', 'desc')->accepted()->paginate(10);
-        return view('back-office.orders.index', compact('orders'));
+        return view('backOffice.orders.index', compact('orders'));
     }
 
     public function show(Order $order) 
     {
-        return view('back-office.orders.show', compact('order')); 
+        return view('backOffice.orders.show', compact('order')); 
     }
 }
